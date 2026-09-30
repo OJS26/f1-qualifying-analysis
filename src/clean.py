@@ -85,3 +85,10 @@ def add_teammate_gap(df):
     return df
 
 
+def add_driver_rel(df, halflife=15):
+    """Driver skill before each race: EWMA of past teammate gaps."""
+    df = df.sort_values(["year", "round"]).copy()
+    df["driver_rel"] = df.groupby("driver_id")["teammate_gap"].transform(
+        lambda s: s.shift(1).ewm(halflife=halflife).mean()
+    )
+    return df
