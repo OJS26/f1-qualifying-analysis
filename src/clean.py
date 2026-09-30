@@ -72,3 +72,16 @@ def add_team_form(teams, halflife=6):
         lambda s: s.shift(1).ewm(halflife=halflife).mean()
     )
     return teams
+
+
+def add_teammate_gap(df):
+    """Finish score minus the mean score of teammates in the same race."""
+    df = df.copy()
+    grp = df.groupby(["race_id", "constructor_id"])["finish_score"]
+    total = grp.transform("sum")
+    count = grp.transform("count")
+    mate_mean = (total - df["finish_score"]) / (count - 1)
+    df["teammate_gap"] = df["finish_score"] - mate_mean
+    return df
+
+
