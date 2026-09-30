@@ -36,3 +36,13 @@ def add_finish_score(df):
     df["finish_score"] = score.fillna(0.0)
     return df
 
+
+def team_race_scores(df):
+    """One row per team per race: mean finish score of its drivers."""
+    out = (
+        df.groupby(["race_id", "year", "round", "constructor_id"], as_index=False)
+        ["finish_score"]
+        .mean()
+        .rename(columns={"finish_score": "team_score"})
+    )
+    return out.sort_values(["year", "round"]).reset_index(drop=True)
