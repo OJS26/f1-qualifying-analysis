@@ -63,3 +63,12 @@ def add_lineage(df, labels):
     df = df.copy()
     df["team"] = df["constructor_id"].map(labels).fillna(df["constructor_id"])
     return df
+
+
+def add_team_form(teams, halflife=6):
+    """Team form before each race: exponentially weighted mean of past scores."""
+    teams = teams.sort_values(["year", "round"]).copy()
+    teams["team_form"] = teams.groupby("team")["team_score"].transform(
+        lambda s: s.shift(1).ewm(halflife=halflife).mean()
+    )
+    return teams
