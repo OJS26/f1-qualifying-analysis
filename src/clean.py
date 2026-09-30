@@ -92,3 +92,22 @@ def add_driver_rel(df, halflife=15):
         lambda s: s.shift(1).ewm(halflife=halflife).mean()
     )
     return df
+
+
+def build_table(raw, chron):
+    """Raw results in, one clean modelling row per driver per race out."""
+    labels = lineage_labels(chron)
+
+    df = drop_non_starters(raw)
+    df = fill_pit_lane_grid(df)
+    df = flag_sprint_grid(df)
+    df = add_finish_score(df)
+    df = add_teammate_gap(df)
+    df = add_driver_rel(df)
+
+    teams = team_race_scores(df)
+    teams = add_lineage(teams, labels)
+    teams = add_team_form(teams)
+
+    form = teams[["race_id", "constructor_id", "team", "team_form"]]
+    return df.merge(form, on=["race_id", "constructor_id"], how="left")
