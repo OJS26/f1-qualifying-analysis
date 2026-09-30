@@ -46,3 +46,20 @@ def team_race_scores(df):
         .rename(columns={"finish_score": "team_score"})
     )
     return out.sort_values(["year", "round"]).reset_index(drop=True)
+
+
+def lineage_labels(chron):
+    """Map each team ID to the latest name in its lineage."""
+    latest = (
+        chron.sort_values("year_from")
+        .groupby("constructor_id")["other_constructor_id"]
+        .last()
+    )
+    return latest.to_dict()
+
+
+def add_lineage(df, labels):
+    """Add a 'team' column: the lineage label, or the ID itself if standalone."""
+    df = df.copy()
+    df["team"] = df["constructor_id"].map(labels).fillna(df["constructor_id"])
+    return df
