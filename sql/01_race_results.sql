@@ -7,6 +7,7 @@ SELECT
     r.round,
     r.date,
     r.circuit_id,
+    r.qualifying_format,
     rr.driver_id,
     rr.constructor_id,
     rr.qualification_position_number,

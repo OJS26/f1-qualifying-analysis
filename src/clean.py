@@ -19,3 +19,10 @@ def fill_pit_lane_grid(df):
         for k, idx in enumerate(order, start=1):
             df.loc[idx, "grid"] = last + k
     return df
+
+
+def flag_sprint_grid(df):
+    """Mark races where the Sunday grid was set by a Sprint race."""
+    df = df.copy()
+    df["is_sprint_grid"] = df["qualifying_format"] == "SPRINT_RACE"
+    return df
