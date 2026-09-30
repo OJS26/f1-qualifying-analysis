@@ -26,3 +26,13 @@ def flag_sprint_grid(df):
     df = df.copy()
     df["is_sprint_grid"] = df["qualifying_format"] == "SPRINT_RACE"
     return df
+
+
+def add_finish_score(df):
+    """Finishing score in [0, 1]: winner = 1, DNF/NC = 0"""
+    df = df.copy()
+    n = df.groupby("race_id")["driver_id"].transform("count")
+    score = (n - df["position_number"] + 1) / n
+    df["finish_score"] = score.fillna(0.0)
+    return df
+
