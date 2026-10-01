@@ -36,3 +36,14 @@ def build_races(data, pa, pg, circuits, margins, dominant_years):
     circ = circuits.set_index("id")[["name", "country_id", "latitude", "longitude", "type"]]
     circ.columns = ["circuit_name", "country", "latitude", "longitude", "circuit_type"]
     return out.join(circ, on="circuit_id").rename_axis("race_id").reset_index()
+
+
+def build_drivers(pa, pg, pc):
+    """One row per driver per test race, with each model's win chance."""
+    keys = ["race_id", "driver_id"]
+    out = pa[keys + ["year", "round", "team", "grid",
+                     "qualification_position_number", "position_number", "won", "p"]]
+    out = out.rename(columns={"p": "p_base"})
+    out = out.merge(pg[keys + ["p"]].rename(columns={"p": "p_grid"}), on=keys)
+    out = out.merge(pc[keys + ["p"]].rename(columns={"p": "p_grid_pole"}), on=keys)
+    return out
