@@ -10,6 +10,11 @@ def prepare(table):
     df["won"] = (df["position_number"] == 1).astype(int)
     df["log_grid"] = np.log(df["grid"])
     df["is_pole"] = (df["grid"] == 1).astype(int)
+    if "team_pace" in df:
+        df["team_pace"] = df["team_pace"].fillna(
+            df.groupby("race_id")["team_pace"].transform("median")
+        )
+        df["team_pace"] = df["team_pace"].fillna(df["team_pace"].median())
     return df
 
 
