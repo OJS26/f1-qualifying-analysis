@@ -37,3 +37,23 @@ def walk_forward(data, cols, years=range(2010,2026)):
         nll = neg_log_lik(beta, test[cols], test["won"], test["race_id"])
         rows.append({"year": y, "races": test["race_id"].nunique(), "nll": nll})
     return pd.DataFrame(rows)
+
+
+def win_prob(beta, X, race):
+    """Each driver's win probability within their race."""
+    eta = X @ beta
+    top = eta.groupby(race).transform("max")
+    e = np.exp(eta - top)
+    return e / e.groupby(race).transform("sum")
+
+
+def walk_forward_probs(data, cols, years=range(2010, 2026)):
+    """Out-of-sample win probabilities for every test race."""
+    out = []
+    for y in years:
+        train = data[data["year"] < y]
+        test = data[data["year"] == y].copy()
+        beta = fit(train[cols], train["won"], train["race_id"])
+        test["p"] = win_prob(beta, test[cols], test["race_id"])
+        out.append(test)
+    return pd.concat(out)
