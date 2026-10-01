@@ -17,7 +17,8 @@ This is a **predictive** result. It says nothing about whether pole position *ca
 
 | Question | Result |
 |---|---|
-| Pole-sitter wins | 52.6% of 329 races |
+| Fastest qualifier wins | 52.6% of 329 races |
+| Driver on grid slot 1 wins | 52.3% of 329 races |
 | Prediction loss, car and driver only | 1.747 |
 | Prediction loss, adding the grid | 1.306 |
 | Gain from the grid | 0.441 (95% range 0.326 to 0.554) |
