@@ -111,3 +111,22 @@ def build_table(raw, chron):
 
     form = teams[["race_id", "constructor_id", "team", "team_form"]]
     return df.merge(form, on=["race_id", "constructor_id"], how="left")
+
+
+def add_practice_pace(data, practice):
+    """Add team_pace: % off the weekend's fastest practice lap (0 = fastest)."""
+    best = (
+        practice.dropna(subset=["time_millis"])
+        .groupby(["race_id", "driver_id"], as_index=False)["time_millis"]
+        .min()
+    )
+    fastest = best.groupby("race_id")["time_millis"].transform("min")
+    best["pace_gap"] = 100 * (best["time_millis"] / fastest - 1)
+
+    df = data.merge(
+        best[["race_id", "driver_id", "pace_gap"]],
+        on=["race_id", "driver_id"],
+        how="left",
+    )
+    df["team_pace"] = df.groupby(["race_id", "constructor_id"])["pace_gap"].transform("min")
+    return df
