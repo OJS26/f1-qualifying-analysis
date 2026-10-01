@@ -57,3 +57,9 @@ def walk_forward_probs(data, cols, years=range(2010, 2026)):
         test["p"] = win_prob(beta, test[cols], test["race_id"])
         out.append(test)
     return pd.concat(out)
+
+
+def temper(p, race, T):
+    """Flatten (T > 1) or sharpen (T < 1) probabilities within each race."""
+    q = p ** (1 / T)
+    return q / q.groupby(race).transform("sum")
