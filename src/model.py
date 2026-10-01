@@ -9,6 +9,7 @@ def prepare(table):
     df["driver_rel"] = df["driver_rel"].fillna(0.0)
     df["won"] = (df["position_number"] == 1).astype(int)
     df["log_grid"] = np.log(df["grid"])
+    df["is_pole"] = (df["grid"] == 1).astype(int)
     return df
 
 
