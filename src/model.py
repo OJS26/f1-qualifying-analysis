@@ -64,3 +64,10 @@ def temper(p, race, T):
     """Flatten (T > 1) or sharpen (T < 1) probabilities within each race."""
     q = p ** (1 / T)
     return q / q.groupby(race).transform("sum")
+
+
+def add_season_strength(data):
+    """Each team's average score over the whole season (uses future races: oracle only)."""
+    df = data.copy()
+    df["season_form"] = df.groupby(["year", "team"])["finish_score"].transform("mean")
+    return df
