@@ -336,6 +336,12 @@
       <column caption='KPI Races' datatype='string' name='[Calculation_1665949025648641]' role='measure' type='nominal'>
         <calculation class='tableau' formula='STR(COUNTD([race_id]))' />
       </column>
+      <column caption='Pole Result' datatype='string' name='[Calculation_2442891446312960]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [pole_won] = 1 THEN &quot;Pole won&quot; ELSE &quot;Someone else won&quot; END' />
+      </column>
+      <column caption='Ring Label' datatype='string' name='[Calculation_2442891451125765]' role='measure' type='nominal'>
+        <calculation class='tableau' formula='STR(ROUND(AVG([pole_won])*100,0)) + &quot;%&quot;' />
+      </column>
       <column caption='Plausible Winners Before' datatype='real' default-format='n#,##0.00;-#,##0.00' name='[Calculation_5486545433587712]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='EXP(AVG([loss_base]))' />
       </column>
@@ -375,6 +381,7 @@
       <column caption='Race Id' datatype='integer' name='[race_id]' role='dimension' type='ordinal' />
       <column caption='Round' datatype='integer' name='[round]' role='measure' type='quantitative' />
       <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+      <column-instance column='[Calculation_2442891446312960]' derivation='None' name='[none:Calculation_2442891446312960:nk]' pivot='key' type='nominal' />
       <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
         <connection access_mode='readonly' author-locale='en_GB' class='hyper' dbname='/var/folders/28/h_g774gs6rx146htss9pd_b40000gn/T/tableau-temp/#TableauTemp_1anpnz20f9wbaj10puy6i0hnhr6a.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/01/2026 02:59:13 PM' username='tableau_internal_user'>
           <relation name='Extract' table='[Extract].[Extract]' type='table' />
@@ -668,6 +675,44 @@
         </connection>
       </extract>
       <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:Calculation_2442891446312960:nk]' type='palette'>
+            <map to='#3a3f47'>
+              <bucket>&quot;Someone else won&quot;</bucket>
+            </map>
+            <map to='#e10600'>
+              <bucket>&quot;Pole won&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:Calculation_2442891446312960:nk]&#10;[:Measure Names]' type='palette'>
+            <map to='#0f1115'>
+              <multibucket>
+                <bucket>&quot;Pole won&quot;</bucket>
+                <bucket>&quot;[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447619588:qk]&quot;</bucket>
+              </multibucket>
+            </map>
+            <map to='#0f1115'>
+              <multibucket>
+                <bucket>&quot;Someone else won&quot;</bucket>
+                <bucket>&quot;[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447619588:qk]&quot;</bucket>
+              </multibucket>
+            </map>
+            <map to='#3a3f47'>
+              <multibucket>
+                <bucket>&quot;Someone else won&quot;</bucket>
+                <bucket>&quot;[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447590914:qk]&quot;</bucket>
+              </multibucket>
+            </map>
+            <map to='#e10600'>
+              <multibucket>
+                <bucket>&quot;Pole won&quot;</bucket>
+                <bucket>&quot;[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447590914:qk]&quot;</bucket>
+              </multibucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;United Kingdom&quot;' />
       </semantic-values>
@@ -993,6 +1038,125 @@
       </table>
       <simple-id uuid='{7747B903-E50C-4FA2-8C89-3390E354BBC0}' />
     </worksheet>
+    <worksheet name='Pole Ring'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='races' name='federated.1wdm7i91w5j1k214jgw2p1celige' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1wdm7i91w5j1k214jgw2p1celige'>
+            <column caption='Pole Result' datatype='string' name='[Calculation_2442891446312960]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [pole_won] = 1 THEN &quot;Pole won&quot; ELSE &quot;Someone else won&quot; END' />
+            </column>
+            <column caption='MIN(0)' datatype='integer' name='[Calculation_2442891447590914]' role='measure' type='quantitative' user:unnamed='Pole Ring'>
+              <calculation class='tableau' formula='MIN(0)' />
+            </column>
+            <column caption='MIN(0)' datatype='integer' name='[Calculation_2442891447619588]' role='measure' type='quantitative' user:unnamed='Pole Ring'>
+              <calculation class='tableau' formula='MIN(0)' />
+            </column>
+            <column caption='Ring Label' datatype='string' name='[Calculation_2442891451125765]' role='measure' type='nominal'>
+              <calculation class='tableau' formula='STR(ROUND(AVG([pole_won])*100,0)) + &quot;%&quot;' />
+            </column>
+            <column-instance column='[__tableau_internal_object_id__].[races.csv_7392A3FA1FF543EA8F1A9E7D7AF941A8]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:races.csv_7392A3FA1FF543EA8F1A9E7D7AF941A8:qk]' pivot='key' type='quantitative' />
+            <column caption='races.csv' datatype='table' name='[__tableau_internal_object_id__].[races.csv_7392A3FA1FF543EA8F1A9E7D7AF941A8]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_2442891446312960]' derivation='None' name='[none:Calculation_2442891446312960:nk]' pivot='key' type='nominal' />
+            <column caption='Pole Won' datatype='integer' default-format='p0.00%' name='[pole_won]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_2442891447590914]' derivation='User' name='[usr:Calculation_2442891447590914:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_2442891447619588]' derivation='User' name='[usr:Calculation_2442891447619588:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_2442891451125765]' derivation='User' name='[usr:Calculation_2442891451125765:nk]' pivot='key' type='nominal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447619588:qk]' field-type='quantitative' fold='true' scope='rows' synchronized='true' type='space' />
+            <format attr='display' class='0' field='[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447590914:qk]' scope='rows' value='false' />
+            <format attr='display' class='0' field='[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447619588:qk]' scope='rows' value='false' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#0f1115' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Pie' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-color' value='#ffffff' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447590914:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Pie' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <color column='[federated.1wdm7i91w5j1k214jgw2p1celige].[none:Calculation_2442891446312960:nk]' />
+              <wedge-size column='[federated.1wdm7i91w5j1k214jgw2p1celige].[__tableau_internal_object_id__].[cnt:races.csv_7392A3FA1FF543EA8F1A9E7D7AF941A8:qk]' />
+              <text column='[federated.1wdm7i91w5j1k214jgw2p1celige].[__tableau_internal_object_id__].[cnt:races.csv_7392A3FA1FF543EA8F1A9E7D7AF941A8:qk]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run fontsize='14'>&lt;</run>
+                <run fontsize='14'>[federated.1wdm7i91w5j1k214jgw2p1celige].[__tableau_internal_object_id__].[cnt:races.csv_7392A3FA1FF543EA8F1A9E7D7AF941A8:qk]</run>
+                <run fontsize='14'>&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='size' value='3.7016575336456299' />
+                <format attr='mark-color' value='#ffffff' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447619588:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <text column='[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891451125765:nk]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run bold='true' fontcolor='#ffffff' fontsize='36'>&lt;</run>
+                <run bold='true' fontcolor='#ffffff' fontsize='36'>[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891451125765:nk]</run>
+                <run bold='true' fontcolor='#ffffff' fontsize='36'>&gt;</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='cell'>
+                <format attr='text-align' value='center' />
+                <format attr='vertical-align' value='center' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='size' value='2' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-color' value='#0f1115' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447590914:qk] + [federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891447619588:qk])</rows>
+        <cols />
+      </table>
+      <simple-id uuid='{A058CE7F-E5D6-486F-A1BC-07780B4B61AE}' />
+    </worksheet>
   </worksheets>
   <dashboards>
     <dashboard enable-sort-zone-taborder='true' name='Dashboard 1'>
@@ -1024,8 +1188,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='1100' minheight='1100' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='20' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='99384' id='19' param='vert' type-v2='layout-flow' w='98858' x='571' y='308'>
+            <zone h='100000' id='22' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='99384' id='21' param='vert' type-v2='layout-flow' w='98858' x='571' y='308'>
                 <zone fixed-size='175' forceUpdate='true' h='6731' id='18' is-fixed='true' is-scaled='1' param='/Users/oj/Downloads/formula-1-vector-logo-seeklogo/formula-1-seeklogo.png' type-v2='bitmap' w='14286' x='1429' y='0'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -1104,6 +1268,24 @@
     </dashboard>
   </dashboards>
   <windows source-height='30'>
+    <window class='dashboard' name='Dashboard 1'>
+      <viewpoints>
+        <viewpoint name='KPI Chance'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='KPI Pole'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='KPI Races'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='KPI Winners'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{41E669DB-B00C-475D-BAF5-E57D2D28DB26}' />
+    </window>
     <window class='worksheet' name='KPI Winners'>
       <cards>
         <edge name='left'>
@@ -1216,23 +1398,39 @@
       </viewpoint>
       <simple-id uuid='{E13264F6-9AB0-4C96-8295-59DB6A052AA9}' />
     </window>
-    <window class='dashboard' maximized='true' name='Dashboard 1'>
-      <viewpoints>
-        <viewpoint name='KPI Chance'>
-          <zoom type='entire-view' />
-        </viewpoint>
-        <viewpoint name='KPI Pole'>
-          <zoom type='entire-view' />
-        </viewpoint>
-        <viewpoint name='KPI Races'>
-          <zoom type='entire-view' />
-        </viewpoint>
-        <viewpoint name='KPI Winners'>
-          <zoom type='entire-view' />
-        </viewpoint>
-      </viewpoints>
-      <active id='-1' />
-      <simple-id uuid='{41E669DB-B00C-475D-BAF5-E57D2D28DB26}' />
+    <window class='worksheet' maximized='true' name='Pole Ring'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='1' param='[federated.1wdm7i91w5j1k214jgw2p1celige].[none:Calculation_2442891446312960:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+        <highlight>
+          <color-one-way>
+            <field>[federated.1wdm7i91w5j1k214jgw2p1celige].[none:Calculation_2442891446312960:nk]</field>
+            <field>[federated.1wdm7i91w5j1k214jgw2p1celige].[usr:Calculation_2442891451125765:nk]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{3CE64DBC-C6B0-40D4-A35E-E4CA4B5B545B}' />
     </window>
   </windows>
   <thumbnails>
@@ -1829,6 +2027,36 @@
       AABRAgAQJQAAUQIAECUAAFECABAlAABRAgAQJQAAUQIAECUAAFECABAlAABRAgAQJQAAUQIA
       ECUAAFECABAlAABRAgAQJQAAUQIAECUAAFECABAlAABRAgAQJQAAUQIAEPUAtyIKOAaFYRMA
       AAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='384' name='Pole Ring' width='384'>
+      iVBORw0KGgoAAAANSUhEUgAAAYAAAAGACAYAAACkx7W/AAAACXBIWXMAAA7DAAAOwwHHb6hk
+      AAAFlUlEQVR4nO3YsW3DMABFQSrQAoaLbGwgyBo2vI4lD6RUAYIMIBbvriJZ/e4BXI7jOAYA
+      OesYY2gAQM/6e7hcP2fuAOBkH7MHADDH+veyLMv4/rqNbX/P2gPASdb/D69tH/fHc8YWAE7k
+      CwggSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoA
+      AKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAg
+      SgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIE
+      ACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAA
+      ogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBK
+      AACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQA
+      IEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACi
+      BAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoA
+      AKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAg
+      SgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIE
+      ACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAA
+      ogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBK
+      AACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQA
+      IEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACi
+      BAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoA
+      AKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAg
+      SgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIE
+      ACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAA
+      ogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBK
+      AACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQA
+      IEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACi
+      BAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoA
+      AKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAg
+      SgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACiBAAgSgAAogQAIEoAAKIE
+      ACBKAACiBAAgSgAAogQAIEoAAKIEACBKAACifgA71hKygmYA9QAAAABJRU5ErkJggg==
     </thumbnail>
   </thumbnails>
 </workbook>
