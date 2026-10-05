@@ -2000,6 +2000,226 @@
         </objects>
       </object-graph>
     </datasource>
+    <datasource caption='forest' inline='true' name='federated.07omz06022ow8314xt41p0pta49e' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='forest' name='textscan.01705640c732ks1be4ivu0wobw00'>
+            <connection class='textscan' directory='/Users/oj/Documents/GitHub/f1-qualifying-analysis/data/processed' filename='forest.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.01705640c732ks1be4ivu0wobw00' name='forest.csv' table='[forest#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_GB' separator=','>
+            <column datatype='string' name='check' ordinal='0' />
+            <column datatype='string' name='point' ordinal='1' />
+            <column datatype='integer' name='order' ordinal='2' />
+            <column datatype='real' name='value' ordinal='3' />
+            <column datatype='integer' name='n' ordinal='4' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[forest.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_GB&quot;</attribute>
+              <attribute datatype='string' name='currency'>&quot;£&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_GB&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>check</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[check]</local-name>
+            <parent-name>[forest.csv]</parent-name>
+            <remote-alias>check</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>point</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[point]</local-name>
+            <parent-name>[forest.csv]</parent-name>
+            <remote-alias>point</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RGB' />
+            <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>order</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[order]</local-name>
+            <parent-name>[forest.csv]</parent-name>
+            <remote-alias>order</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>value</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[value]</local-name>
+            <parent-name>[forest.csv]</parent-name>
+            <remote-alias>value</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>n</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[n]</local-name>
+            <parent-name>[forest.csv]</parent-name>
+            <remote-alias>n</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Range Value' datatype='real' name='[Calculation_2926334084276225]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [point] = &quot;range&quot; THEN [value] END' />
+      </column>
+      <column caption='Rate Value' datatype='real' name='[Calculation_2926334084345858]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [point] = &quot;rate&quot; THEN [value] END' />
+      </column>
+      <column caption='forest.csv' datatype='table' name='[__tableau_internal_object_id__].[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]' role='measure' type='quantitative' />
+      <column caption='Check' datatype='string' name='[check]' role='dimension' type='nominal' />
+      <column caption='N' datatype='integer' name='[n]' role='measure' type='quantitative' />
+      <column aggregation='Sum' caption='Order' datatype='integer' name='[order]' role='dimension' type='ordinal' />
+      <column caption='Point' datatype='string' name='[point]' role='dimension' type='nominal' />
+      <column caption='Value' datatype='real' name='[value]' role='measure' type='quantitative' />
+      <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
+        <connection access_mode='readonly' author-locale='en_GB' class='hyper' dbname='Data/tableau-temp 1/#TableauTemp_1rn6cfl0akshde10zsgud08kdz61.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='10/05/2026 07:19:22 PM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>check</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[check]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>check</remote-alias>
+              <ordinal>0</ordinal>
+              <family>forest.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>point</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[point]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>point</remote-alias>
+              <ordinal>1</ordinal>
+              <family>forest.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RGB' />
+              <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>order</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[order]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>order</remote-alias>
+              <ordinal>2</ordinal>
+              <family>forest.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>value</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[value]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>value</remote-alias>
+              <ordinal>3</ordinal>
+              <family>forest.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>6</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>n</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[n]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>n</remote-alias>
+              <ordinal>4</ordinal>
+              <family>forest.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>2</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[forest.csv_F9CDD05C73E44BA486B737F59907CBB4]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United Kingdom&quot;' />
+      </semantic-values>
+      <date-options start-of-week='monday' />
+      <object-graph>
+        <objects>
+          <object caption='forest.csv' id='forest.csv_F9CDD05C73E44BA486B737F59907CBB4'>
+            <properties context=''>
+              <relation connection='textscan.01705640c732ks1be4ivu0wobw00' name='forest.csv' table='[forest#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_GB' separator=','>
+                  <column datatype='string' name='check' ordinal='0' />
+                  <column datatype='string' name='point' ordinal='1' />
+                  <column datatype='integer' name='order' ordinal='2' />
+                  <column datatype='real' name='value' ordinal='3' />
+                  <column datatype='integer' name='n' ordinal='4' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
   </datasources>
   <mapsources>
     <mapsource name='Tableau' />
@@ -3390,93 +3610,35 @@
       <table>
         <view>
           <datasources>
-            <datasource caption='checks' name='federated.1awknll0mwpee90zv35cm1jwz7la' />
+            <datasource caption='forest' name='federated.07omz06022ow8314xt41p0pta49e' />
           </datasources>
-          <datasource-dependencies datasource='federated.1awknll0mwpee90zv35cm1jwz7la'>
-            <column caption='Width' datatype='real' name='[Calculation_2926334080647168]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='AVG([high]) - AVG([low])' />
-            </column>
-            <column-instance column='[low]' derivation='Avg' name='[avg:low:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[rate]' derivation='Avg' name='[avg:rate:qk]' pivot='key' type='quantitative' />
+          <datasource-dependencies datasource='federated.07omz06022ow8314xt41p0pta49e'>
             <column caption='Check' datatype='string' name='[check]' role='dimension' type='nominal' />
-            <column caption='High' datatype='real' name='[high]' role='measure' type='quantitative' />
-            <column caption='Low' datatype='real' name='[low]' role='measure' type='quantitative' />
             <column-instance column='[check]' derivation='None' name='[none:check:nk]' pivot='key' type='nominal' />
-            <column caption='Rate' datatype='real' name='[rate]' role='measure' type='quantitative' />
-            <column-instance column='[Calculation_2926334080647168]' derivation='User' name='[usr:Calculation_2926334080647168:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[order]' derivation='None' name='[none:order:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[point]' derivation='None' name='[none:point:nk]' pivot='key' type='nominal' />
+            <column aggregation='Sum' caption='Order' datatype='integer' name='[order]' role='dimension' type='ordinal' />
+            <column caption='Point' datatype='string' name='[point]' role='dimension' type='nominal' />
           </datasource-dependencies>
           <aggregation value='true' />
         </view>
-        <style>
-          <style-rule element='axis'>
-            <encoding attr='space' class='0' field='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:low:qk]' field-type='quantitative' fold='true' scope='cols' type='space' />
-          </style-rule>
-          <style-rule element='cell'>
-            <format attr='text-format' field='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:rate:qk]' value='p0.0%' />
-          </style-rule>
-        </style>
+        <style />
         <panes>
           <pane selection-relaxation-option='selection-relaxation-allow'>
             <view>
               <breakdown value='auto' />
             </view>
             <mark class='Circle' />
-            <mark-sizing mark-sizing-setting='marks-scaling-off' />
             <encodings>
-              <text column='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:rate:qk]' />
+              <color column='[federated.07omz06022ow8314xt41p0pta49e].[none:point:nk]' />
+              <lod column='[federated.07omz06022ow8314xt41p0pta49e].[none:order:ok]' />
             </encodings>
-            <style>
-              <style-rule element='mark'>
-                <format attr='size' value='9.8604745864868164' />
-                <format attr='mark-labels-show' value='true' />
-                <format attr='mark-labels-cull' value='true' />
-                <format attr='mark-color' value='#e10600' />
-              </style-rule>
-            </style>
-          </pane>
-          <pane id='1' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:rate:qk]'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Circle' />
-            <mark-sizing mark-sizing-setting='marks-scaling-off' />
-            <encodings>
-              <text column='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:rate:qk]' />
-            </encodings>
-            <style>
-              <style-rule element='mark'>
-                <format attr='size' value='9.8604745864868164' />
-                <format attr='mark-labels-show' value='true' />
-                <format attr='mark-labels-cull' value='true' />
-                <format attr='mark-color' value='#e6e6e6' />
-              </style-rule>
-            </style>
-          </pane>
-          <pane id='2' selection-relaxation-option='selection-relaxation-allow' x-axis-name='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:low:qk]'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='GanttBar' />
-            <mark-sizing mark-sizing-setting='marks-scaling-off' />
-            <encodings>
-              <size column='[federated.1awknll0mwpee90zv35cm1jwz7la].[usr:Calculation_2926334080647168:qk]' />
-              <text column='[federated.1awknll0mwpee90zv35cm1jwz7la].[avg:rate:qk]' />
-              <color column='[federated.1awknll0mwpee90zv35cm1jwz7la].[:Measure Names]' />
-            </encodings>
-            <style>
-              <style-rule element='mark'>
-                <format attr='size' value='9.8604745864868164' />
-                <format attr='mark-labels-show' value='true' />
-                <format attr='mark-labels-cull' value='true' />
-                <format attr='mark-color' value='#e10600' />
-              </style-rule>
-            </style>
           </pane>
         </panes>
-        <rows>[federated.1awknll0mwpee90zv35cm1jwz7la].[none:check:nk]</rows>
-        <cols>([federated.1awknll0mwpee90zv35cm1jwz7la].[avg:rate:qk] + [federated.1awknll0mwpee90zv35cm1jwz7la].[avg:low:qk])</cols>
+        <rows>[federated.07omz06022ow8314xt41p0pta49e].[none:check:nk]</rows>
+        <cols />
       </table>
-      <simple-id uuid='{3BA6DEB2-AFE2-475A-BF05-750B34DB0208}' />
+      <simple-id uuid='{DDB342D7-A126-4C07-BEE3-E537562A8F04}' />
     </worksheet>
   </worksheets>
   <dashboards>
@@ -3915,7 +4077,7 @@
       <simple-id uuid='{4A9BCC70-280D-477E-BE4B-4FA6A292D2B2}' />
     </dashboard>
   </dashboards>
-  <windows source-height='93'>
+  <windows source-height='114'>
     <window class='dashboard' name='Dashboard 1'>
       <viewpoints>
         <viewpoint name='Callout Drop'>
@@ -4331,11 +4493,16 @@
             <card type='title' />
           </strip>
         </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.07omz06022ow8314xt41p0pta49e].[none:point:nk]' type='color' />
+          </strip>
+        </edge>
       </cards>
       <viewpoint>
         <zoom type='entire-view' />
       </viewpoint>
-      <simple-id uuid='{8282251A-B561-4157-9593-E27D57657DF3}' />
+      <simple-id uuid='{390AB1D8-1FBB-4C77-A5BD-7B41E2D44547}' />
     </window>
   </windows>
 </workbook>
