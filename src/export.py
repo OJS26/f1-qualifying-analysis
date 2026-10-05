@@ -47,3 +47,20 @@ def build_drivers(pa, pg, pc):
     out = out.merge(pg[keys + ["p"]].rename(columns={"p": "p_grid"}), on=keys)
     out = out.merge(pc[keys + ["p"]].rename(columns={"p": "p_grid_pole"}), on=keys)
     return out
+
+
+def build_pairs(pairs, table):
+    """Neighbouring qualifiers with both cars' grid slots and finishes."""
+    pairs = pairs[pairs["gap_ms"] >= 0]
+    res = table.set_index(["race_id", "driver_id"])[["position_number", "grid"]]
+    out = pairs.join(res, on=["race_id", "driver_id"])
+    out = out.join(res.add_suffix("_back"), on=["race_id", "driver_id_back"])
+    out = out.dropna(subset=["position_number", "position_number_back"]).copy()
+
+    out["front_ahead"] = (out["position_number"] < out["position_number_back"]).astype(int)
+    out["flipped"] = (out["grid"] > out["grid_back"]).astype(int)
+    out["slot_ahead_won"] = np.where(out["flipped"] == 1, 1 - out["front_ahead"], out["front_ahead"])
+    out["near_tie"] = (out["gap_ms"] < 100).astype(int)
+    return out[["race_id", "year", "driver_id", "driver_id_back", "qpos", "group",
+                "gap_ms", "grid", "grid_back", "position_number", "position_number_back",
+                "front_ahead", "flipped", "slot_ahead_won", "near_tie"]]
