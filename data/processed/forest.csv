@@ -1,0 +1,7 @@
+check,point,order,value,n
+Neighbours within 0.1 s,rate,0,0.534740092640247,1943
+Penalty-flipped pairs,rate,0,0.6018518518518519,108
+Neighbours within 0.1 s,range,1,0.5125612510274384,1943
+Penalty-flipped pairs,range,1,0.5095285465914621,108
+Neighbours within 0.1 s,range,2,0.5569189342530556,1943
+Penalty-flipped pairs,range,2,0.6941751571122416,108
