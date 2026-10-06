@@ -2,16 +2,18 @@
 
 How much extra information does F1 qualifying give about a race result, beyond what we already know about the car and the team?
 
+**Live dashboard:** [How much does Saturday tell us about Sunday?](https://public.tableau.com/app/profile/oliver.strachan/viz/HowmuchdoesSaturdaytellusaboutSunday-anF1analysis_17913068630510/Dashboard1)
+
 ## The answer
 
-Qualifying cuts the field of plausible winners from about **5.7 drivers to 3.7**. In log-loss terms, adding the starting grid improves out-of-sample winner prediction by **0.44 nats per race** (95% range 0.33 to 0.55), tested on 329 races from 2010 to 2025.
+Qualifying cuts the field of plausible winners from about **5.7 drivers to 3.7**, and lifts the typical chance given to the eventual winner from **17% to 27%**. This is tested on 329 races from 2010 to 2025, with every race scored by a model that had never seen it.
+
+The accuracy score behind it is log loss, which measures how surprised the model is by the real winner (lower is better, and the unit is called a nat). Adding the starting grid cuts it by **0.44 per race** (95% range 0.33 to 0.55).
 
 The result holds up against:
 - a baseline that knows each team's true full-season strength (gain 0.36)
 - Friday practice pace (gain 0.38)
 - both dominant and close seasons, every era tested, and every circuit
-
-This is a **predictive** result. It says nothing about whether pole position *causes* wins.
 
 ## Key numbers
 
