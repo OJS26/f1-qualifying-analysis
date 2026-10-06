@@ -49,7 +49,7 @@ The result holds up against:
 
 ## The dashboard
 
-The findings are published as a Tableau dashboard: [How much does Saturday tell us about Sunday?](https://public.tableau.com/app/profile/oliver.strachan/viz/HowmuchdoesSaturdaytellusaboutSunday-anF1analysis_17913068630510/Dashboard1). The packaged workbook is also in this repo at `tableau/F1 Analysis.twbx`.
+The findings are published as a Tableau dashboard: [How much does Saturday tell us about Sunday?](https://public.tableau.com/app/profile/oliver.strachan/viz/HowmuchdoesSaturdaytellusaboutSunday-anF1analysis_17913068630510/Dashboard1). The packaged workbook is also in this repo at `Tableau/F1 Analysis.twbx`.
 
 Each section asks one question and answers it with a different kind of chart:
 
@@ -104,7 +104,7 @@ The workbook carries its own copy of the data. If you re-export the CSVs, open t
 
 2. Download `f1db-sqlite.zip` from the f1db releases (version v2026.15.1 was used), unzip it, and put `f1db.db` in `data/raw/`.
 3. Open `notebooks/01_explore_db.ipynb` and choose **Run All** to rebuild the analysis and every result in the tables above. (the notebook is the exploratory log, in the order it was written, and that the results in the README come from it cell by cell, not necessarily with Run All.)
-4. Open `notebooks/02_tableau_exports.ipynb` and choose **Run All** to regenerate the files in `data/processed/`. The dashboard is the packaged workbook in `tableau/`, or the published link above.
+4. Open `notebooks/02_tableau_exports.ipynb` and choose **Run All** to regenerate the files in `data/processed/`. The dashboard is the packaged workbook in `Tableau/`, or the published link above.
 
 ## Project layout
 
@@ -114,7 +114,7 @@ src/         clean.py (cleaning and features), model.py (model and testing), exp
 notebooks/   01_explore_db (the exploratory analysis) and 02_tableau_exports (builds the dashboard files)
 data/raw/    the f1db database (not committed)
 data/processed/  CSV files used by the dashboard
-tableau/     the packaged Tableau workbook
+Tableau/     the packaged Tableau workbook
 ```
 
 ## Data
