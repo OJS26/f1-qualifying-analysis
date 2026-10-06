@@ -47,6 +47,36 @@ The result holds up against:
 
 **Pace vs starting slot (suggestive only).** Two checks on whether the starting slot itself helps, beyond pace: neighbouring cars that qualified within 0.1 s of each other (front car finished ahead 53.5% of the time), and pairs where a penalty flipped the grid order (the car that started ahead finished ahead 60.2% of the time, on only 108 pairs). Both lean the same way, neither is strong.
 
+## The dashboard
+
+The findings are published as a Tableau dashboard: [How much does Saturday tell us about Sunday?](https://public.tableau.com/app/profile/oliver.strachan/viz/HowmuchdoesSaturdaytellusaboutSunday-anF1analysis_17913068630510/Dashboard1). The packaged workbook is also in this repo at `tableau/F1 Analysis.twbx`.
+
+Each section asks one question and answers it with a different kind of chart:
+
+1. **How often does the driver on pole actually win?** A ring and a season-by-season bar chart.
+2. **How often would we expect them to win before qualifying?** A dumbbell chart, baseline against actual.
+3. **How quickly does the win chance fall as drivers start further back?** Bars with a baseline line.
+4. **Does Saturday only matter when one car is dominant?** A slope chart.
+5. **Does Saturday matter more at some tracks than others?** An interactive map. Click a circuit for its numbers, and click it again to reset.
+6. **Does starting in front help beyond pure pace?** Overlapping curves for the two slot-vs-pace checks.
+
+### Data behind it
+
+The notebook `notebooks/02_tableau_exports.ipynb` builds these files in `data/processed/`:
+
+| File | What it holds | Used by |
+|---|---|---|
+| `races.csv` | One row per test race (329), with the grid's gain, pole result and circuit | Tiles, sections 1 to 5 |
+| `drivers.csv` | One row per driver per test race, with each model's win chance | Section 3 |
+| `pairs.csv` | Neighbouring qualifiers with both cars' grid slots and finishes | Section 6 checks |
+| `checks.csv` | The two slot-vs-pace results with their rough 95% ranges | Builds `curves.csv` |
+| `curves.csv` | Bell-curve points drawn from those ranges | Section 6 |
+| `forest.csv` | Input for a chart that was dropped | Not used |
+
+The pairs in `pairs.csv` run from 2006 to 2025 (393 races, 4,861 pairs), because nothing is fitted in that check. The rest of the dashboard covers 2010 to 2025.
+
+The workbook carries its own copy of the data. If you re-export the CSVs, open the workbook, use **Data → Refresh**, and save again.
+
 ## Caveats
 
 - **Predictive, not causal.** Nothing here shows that pole position causes wins.
