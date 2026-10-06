@@ -101,16 +101,20 @@ The workbook carries its own copy of the data. If you re-export the CSVs, open t
    pip install -r requirements.txt
 ```
 
+
 2. Download `f1db-sqlite.zip` from the f1db releases (version v2026.15.1 was used), unzip it, and put `f1db.db` in `data/raw/`.
-3. Open `notebooks/01_explore_db.ipynb` and choose **Run All**.
+3. Open `notebooks/01_explore_db.ipynb` and choose **Run All** to rebuild the analysis and every result in the tables above. (the notebook is the exploratory log, in the order it was written, and that the results in the README come from it cell by cell, not necessarily with Run All.)
+4. Open `notebooks/02_tableau_exports.ipynb` and choose **Run All** to regenerate the files in `data/processed/`. The dashboard is the packaged workbook in `tableau/`, or the published link above.
 
 ## Project layout
 
 ```
 sql/         queries that load results, practice times, pole margins, qualifying times
-src/         clean.py (cleaning and features), model.py (model and testing)
-notebooks/   the exploratory analysis, with every decision written down
-data/raw/    the database (not committed)
+src/         clean.py (cleaning and features), model.py (model and testing), export.py (files for Tableau)
+notebooks/   01_explore_db (the exploratory analysis) and 02_tableau_exports (builds the dashboard files)
+data/raw/    the f1db database (not committed)
+data/processed/  CSV files used by the dashboard
+tableau/     the packaged Tableau workbook
 ```
 
 ## Data
